@@ -49,6 +49,9 @@ class _ListUsersPage extends State<list_users> {
           // ignore: missing_return
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(model.data[index].avatar),
+              ),
               title: Text(model.data[index].firstName),
               subtitle: Text(model.data[index].email),
               // child: Column(

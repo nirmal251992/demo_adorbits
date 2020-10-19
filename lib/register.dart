@@ -401,7 +401,6 @@ class _MyRegisterPageState extends State<register> {
                             } else {
                               print('Form is invalid');
                             }
-
                             // print(nameController.text);
                             //print(passwordController.text);
                           },
