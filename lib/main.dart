@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyLoginPageState extends State<MyApp> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  ProgressDialog pr;
 
   void _loginState(String email, String password) async {
     final http.Response response = await http.post(
@@ -32,18 +33,27 @@ class _MyLoginPageState extends State<MyApp> {
           'password': password,
         });
     print(response.body);
+    var convertDataToJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      pr.hide().then((isHidden) {
+        print(isHidden);
+      });
       Fluttertoast.showToast(msg: "Login Success ",toastLength: Toast.LENGTH_LONG);
       Navigator.push(context, MaterialPageRoute(builder: (context) => list_users()));
+
     }
   else
     {
-      Fluttertoast.showToast(msg: "Login Failed ",toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: convertDataToJson['error'],toastLength: Toast.LENGTH_LONG);
+      pr.hide().then((isHidden) {
+        print(isHidden);
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: true, showLogs: true);
     return  Container(
 
       decoration: BoxDecoration(
@@ -152,6 +162,7 @@ class _MyLoginPageState extends State<MyApp> {
                             color: Colors.black54,
                             child: Image.asset("assets/right-arrow.png",width: 20,height: 20,),
                             onPressed: () {
+                         pr.show();
                               //Navigator.push(context, MaterialPageRoute(builder: (context) => list_users()));
                               _loginState(nameController.text, passwordController.text);
                               //
@@ -201,6 +212,7 @@ class _MyLoginPageState extends State<MyApp> {
                           ),
                         ),
                         onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => list_users()));
                           //signup screen
                         },
                       )
