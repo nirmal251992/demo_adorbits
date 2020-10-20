@@ -7,22 +7,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:progress_dialog/progress_dialog.dart';
+
 
 enum Gender { Male, Female }
 enum Language {English , Hindi, Gujarati}
 
-class register extends StatefulWidget {
-  register({Key key}) : super(key: key);
+class Register extends StatefulWidget {
+  Register({Key key}) : super(key: key);
   @override
   _MyRegisterPageState createState() => _MyRegisterPageState();
 }
 
-class _MyRegisterPageState extends State<register> {
+class _MyRegisterPageState extends State<Register> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController dateofBirthController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ProgressDialog pr;
   Gender character = Gender.Male;
   String name, email, mobile;
   bool _validate = false;
@@ -50,12 +53,22 @@ class _MyRegisterPageState extends State<register> {
     print(response.body);
     var convertDataToJson = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(msg: "User is Register Successfully ",toastLength: Toast.LENGTH_LONG);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => list_users()));
+      pr.hide().then((isHidden) {
+        print(isHidden);
+      });
+      Fluttertoast.showToast(msg: "User is Register Successfully ",
+          toastLength: Toast.LENGTH_LONG);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => list_users()));
     }
-    else
-    {
-      Fluttertoast.showToast(msg: convertDataToJson['error'],toastLength: Toast.LENGTH_LONG);
+    else {
+      if (response.statusCode == 200) {
+        pr.hide().then((isHidden) {
+          print(isHidden);
+        });
+        Fluttertoast.showToast(
+            msg: convertDataToJson['error'], toastLength: Toast.LENGTH_LONG);
+      }
     }
   }
   Future<void> _selectDate(BuildContext context) async {
@@ -397,6 +410,7 @@ class _MyRegisterPageState extends State<register> {
                             if (form.validate()) {
                             //  _loginState(email, password)
                               print('Form is valid');
+                              pr.show();
                               _registerState(emailController.text, passwordController.text);
                             } else {
                               print('Form is invalid');
