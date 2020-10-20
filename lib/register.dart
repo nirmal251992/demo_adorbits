@@ -62,13 +62,13 @@ class _MyRegisterPageState extends State<Register> {
           context, MaterialPageRoute(builder: (context) => list_users()));
     }
     else {
-      if (response.statusCode == 200) {
+
         pr.hide().then((isHidden) {
           print(isHidden);
         });
         Fluttertoast.showToast(
             msg: convertDataToJson['error'], toastLength: Toast.LENGTH_LONG);
-      }
+
     }
   }
   Future<void> _selectDate(BuildContext context) async {
@@ -107,6 +107,7 @@ class _MyRegisterPageState extends State<Register> {
   }
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: true, showLogs: true);
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -167,9 +168,7 @@ class _MyRegisterPageState extends State<Register> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-
                       Radio(
-
                         activeColor: Colors.white,
                         focusColor: Colors.white,
                         hoverColor: Colors.white,
