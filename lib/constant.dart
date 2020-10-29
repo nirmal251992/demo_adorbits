@@ -37,7 +37,6 @@ class CustomTextStyle {
 }
 
 class CheckInternet {
-
     Future<bool> _checkInternetConnectivity() async {
     var result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.none) {
