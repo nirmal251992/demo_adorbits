@@ -1,3 +1,4 @@
+import 'package:demo_adorebits/user_details.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -44,11 +45,60 @@ class _ListUsersPage extends State<list_users> {
       appBar: AppBar(
         title: Text('List Users'),
       ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage:  AssetImage("assets/placheholder.jpg")
+                  ),
+                  Text('Hello'),
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Colors.redAccent,
+              ),
+            ),
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('About Us'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: ListView.builder(
           itemCount: model.data.length,
           // ignore: missing_return
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
+
+              onTap: () {
+                print('On Tap');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Userdetails(data1: model.data[index],)));
+              },
+              //selected: true,
+
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(model.data[index].avatar),
               ),

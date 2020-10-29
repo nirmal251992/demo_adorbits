@@ -1,3 +1,4 @@
+import 'package:demo_adorebits/constant.dart';
 import 'package:demo_adorebits/list_users.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -9,7 +10,6 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:progress_dialog/progress_dialog.dart';
 
-
 enum Gender { Male, Female }
 enum Language {English , Hindi, Gujarati}
 
@@ -20,6 +20,7 @@ class Register extends StatefulWidget {
 }
 
 class _MyRegisterPageState extends State<Register> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -126,6 +127,7 @@ class _MyRegisterPageState extends State<Register> {
         backgroundColor: Colors.transparent,
         body: ListView(
           children: <Widget>[
+
             Container(
               height: 50,
               alignment: Alignment.topLeft,
@@ -234,20 +236,22 @@ class _MyRegisterPageState extends State<Register> {
                           ),
                           validator: validateEmail,
                           controller: emailController,
-                          decoration: InputDecoration(
+                          decoration: Decor.decorText.copyWith(labelText: 'Email'),
 
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            hintStyle: TextStyle(color: Colors.white),
-                            labelStyle: TextStyle(color: Colors.white),
-                            // border: InputBorder.none,
-                            labelText: 'Email',
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-
-                          ),
+                          // InputDecoration(
+                          //
+                          //   enabledBorder: UnderlineInputBorder(
+                          //     borderSide: BorderSide(color: Colors.white),
+                          //   ),
+                          //   hintStyle: TextStyle(color: Colors.white),
+                          //   labelStyle: TextStyle(color: Colors.white),
+                          //   // border: InputBorder.none,
+                          //   labelText: 'Email',
+                          //   focusedBorder: UnderlineInputBorder(
+                          //     borderSide: BorderSide(color: Colors.white),
+                          //   ),
+                          //
+                          // ),
 
                           keyboardType: TextInputType.emailAddress,
                         ),
