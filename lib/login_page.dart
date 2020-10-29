@@ -91,7 +91,7 @@ class _MyLoginPageState extends State<MyApp> {
                   padding: EdgeInsets.fromLTRB(40, 20, 5, 5),
                   child: Text(
                     'Welcome',
-                    style: CustomTextStyle.display5(context).copyWith(color: Colors.black),
+                    style: CustomTextStyle.display5(context).copyWith(color: Colors.white),
                   ),
                 ),
                 Container(

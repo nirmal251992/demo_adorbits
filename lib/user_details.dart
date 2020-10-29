@@ -10,7 +10,6 @@ class Userdetails extends StatefulWidget {
 }
 
 class UserdetailsState extends State<Userdetails> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
